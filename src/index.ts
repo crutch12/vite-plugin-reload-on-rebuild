@@ -41,6 +41,8 @@ function reloadOnRebuild({
   return {
     name: "vite-plugin-reload-on-rebuild",
 
+    apply: "build",
+
     configResolved(config) {
       isWatchMode = !!config.build.watch;
       basePath = config.base;

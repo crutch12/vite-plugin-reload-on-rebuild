@@ -6,6 +6,8 @@ npm install vite-plugin-reload-on-rebuild --save-dev
 
 `vite-plugin-reload-on-rebuild` plugin adds `reload-on-rebuild.js` script on the page which polls `window.location.href` and reloads the page if `etag` or `last-modified` headers are changed.
 
+**Production (build) mode only**
+
 ## Usage
 
 Add `vite-plugin-reload-on-rebuild` plugin to your project:
@@ -26,10 +28,13 @@ export default defineConfig({
 });
 ```
 
-Run `vite build` in `watch` mode:
+Run `vite build` in `watch` mode and start the `preview` server:
 
 ```bash
+# 1st terminal
 npx vite build -w
+# 2nd terminal
+npx vite preview
 ```
 
 Change the source code and see how your page reloads 🚀
