@@ -1,6 +1,6 @@
 {
   "name": "vite-plugin-reload-on-rebuild",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Reloads page when current html file changes (on rebuild; without dev server)",
   "type": "module",
   "main": "./dist/index.cjs",
