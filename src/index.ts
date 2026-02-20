@@ -65,7 +65,7 @@ function reloadOnRebuild({
       for (const header of headers) {
         const value = res.headers.get(header)
         if (header in savedValues && savedValues[header] !== value) {
-          console.log('[vite-plugin-reload-on-rebuild]', 'Build changed. Reloading...');
+          console.log('[vite-plugin-reload-on-rebuild]', 'Header changed:', header, '(' + value + ').', 'Reloading...');
           location.reload();
         }
         savedValues[header] = value
