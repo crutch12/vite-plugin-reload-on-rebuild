@@ -1,0 +1,56 @@
+{
+  "name": "vite-plugin-reload-on-rebuild",
+  "version": "0.0.0",
+  "description": "Reloads page when current html file changes (on rebuild; without dev server)",
+  "type": "module",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    "require": {
+      "types": "./dist/index.d.cts",
+      "default": "./dist/index.cjs"
+    },
+    "import": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
+  },
+  "scripts": {
+    "build": "tsup",
+    "prepack": "npm run build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/crutch12/vite-plugin-reload-on-rebuild.git"
+  },
+  "keywords": [
+    "vite",
+    "plugin",
+    "vite-plugin",
+    "vitejs",
+    "rebuild",
+    "reload",
+    "watch"
+  ],
+  "author": {
+    "name": "Konstantin Barabanov",
+    "email": "criitch@yandex.ru"
+  },
+  "license": "MIT-0",
+  "bugs": {
+    "url": "https://github.com/crutch12/vite-plugin-reload-on-rebuild/issues"
+  },
+  "homepage": "https://github.com/crutch12/vite-plugin-reload-on-rebuild#readme",
+  "devDependencies": {
+    "@types/node": "^25.3.0",
+    "tsup": "^8.5.1",
+    "typescript": "^5.9.3",
+    "vite": "^7.3.1"
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE.md"
+  ]
+}
