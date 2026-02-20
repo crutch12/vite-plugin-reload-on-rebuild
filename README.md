@@ -26,7 +26,7 @@ export default defineConfig({
 });
 ```
 
-Run `vite` in `watch` mode:
+Run `vite build` in `watch` mode:
 
 ```bash
 npx vite build -w
