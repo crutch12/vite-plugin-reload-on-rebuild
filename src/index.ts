@@ -26,6 +26,12 @@ export interface ReloadOnRebuildOptions {
    * @default - ["etag", "last-modified"]
    */
   headers?: string[];
+  /**
+   * Processes css file only if it's path matches provided filter
+   * @example (path) => Boolean(path.match(/src[\\/]index\.html/))
+   * @default () => true
+   */
+  filter?: (path: string) => boolean;
 }
 
 function reloadOnRebuild({
@@ -34,6 +40,7 @@ function reloadOnRebuild({
   fileName = "reload-on-rebuild.js",
   interval = 3000,
   headers = ["etag", "last-modified"],
+  filter = () => true,
 }: ReloadOnRebuildOptions = {}): Plugin {
   let isWatchMode = false;
   let basePath: string;
@@ -48,7 +55,7 @@ function reloadOnRebuild({
       basePath = config.base;
     },
 
-    async generateBundle() {
+    async generateBundle(ctx) {
       if (!enabled) return;
       if (mode === "watch" && !isWatchMode) return;
 
@@ -79,9 +86,10 @@ function reloadOnRebuild({
       });
     },
 
-    transformIndexHtml(html) {
+    transformIndexHtml(html, ctx) {
       if (!enabled) return;
       if (mode === "watch" && !isWatchMode) return;
+      if (!filter(ctx.path)) return;
 
       return {
         html,
