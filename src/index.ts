@@ -65,9 +65,12 @@ function reloadOnRebuild({
         source: `(function() {
   const headers = ${JSON.stringify(headers.map((h) => h.toLocaleLowerCase().trim()))}
   const savedValues = {}
+  let savedContent = undefined
   async function check() {
     try {
       const res = await fetch(window.location.href, { method: 'HEAD', cache: 'no-cache' });
+
+      if (res.status >= 500) return;
 
       for (const header of headers) {
         const value = res.headers.get(header)
@@ -76,6 +79,17 @@ function reloadOnRebuild({
           location.reload();
         }
         savedValues[header] = value
+      }
+      // All provided headers are empty, try to check body next time
+      if (Object.values(savedValues).filter(x => x != null && x != '').length === 0) {
+        const contentRes = await fetch(window.location.href, { method: 'GET', cache: 'no-cache' });
+        if (contentRes.status >= 500) return;
+        const content = await contentRes.text();
+        if (savedContent && content !== savedContent) {
+          console.log('[vite-plugin-reload-on-rebuild]', 'Text content changed.', 'Reloading...');
+          location.reload();
+        }
+        savedContent = content
       }
     } catch (e) {}
     setTimeout(check, ${interval});
